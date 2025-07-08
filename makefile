@@ -9,5 +9,11 @@ lint:
 format:
 	uv run ruff format .
 
+requirements:
+	uv export --no-dev 
+
+prod: main
+	uv run gunicorn --config gunicorn.conf.py wsgi:app
+
 serve: main
 	uv run flask run
