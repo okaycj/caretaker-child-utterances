@@ -10,7 +10,7 @@ format:
 	uv run ruff format .
 
 requirements:
-	uv export --no-dev 
+	uv export --no-dev > requirements.txt
 
 prod: main
 	uv run gunicorn --config gunicorn.conf.py wsgi:app
