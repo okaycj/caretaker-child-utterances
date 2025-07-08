@@ -7,6 +7,7 @@ import pandas as pd
 import pylangacq  # type: ignore
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 
 
@@ -49,13 +50,11 @@ def train(d: Generator[tuple[str, str], None, None]) -> None:
     model = LogisticRegression()
     model.fit(X_train, y_train)
 
-
     y_pred = model.predict(X_test)
     print(classification_report(y_test, y_pred))
 
     joblib.dump(model, "childes.joblib")
     joblib.dump(vectorizer, "vectorizer.joblib")
-
 
 
 def preprocess_stoopsmontag() -> Generator[tuple[str, str], None, None]:
