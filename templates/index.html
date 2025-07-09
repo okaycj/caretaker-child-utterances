@@ -1,5 +1,37 @@
-<form action="{{ url_for('index') }}" method="post">
-    <input type="text" name="phrase">
-    <input type="submit">
-</form>
-<p>{{ prediction }}</p>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <title>{{ title }}</title>
+        <link rel="stylesheet"
+              href="https://unpkg.com/skeleton-css@2.0.4/css/normalize.css"
+              integrity="sha384-yUxY/Aef45JYoQ7ifk+yK+iAql95xGPJ3n8sc2iCdfRLBhW/oGtpu15i3nQeewtW"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://unpkg.com/skeleton-css@2.0.4/css/skeleton.css"
+              integrity="sha384-DYrp2zq2MpwpsUD/zg8quiwNIBprEgPFt6ThfU0sQW3OkhWAdrZg6VTMwfbQ7315"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+        <script src="https://unpkg.com/chart.js@4.5.0/dist/chart.umd.min.js"
+                integrity="sha384-XcdcwHqIPULERb2yDEM4R0XaQKU3YnDsrTmjACBZyfdVVqjh6xQ4/DCMd7XLcA6Y"
+                crossorigin="anonymous"></script>
+        <script type="text/javascript"
+                src="{{ url_for('static', filename='index.js') }}"
+                defer></script>
+    </head>
+    <body {% if utterance %} onload="displayChart('{{ utterance }}', '{{ care_taker_percent }}', '{{ child_percent }}', '{{ title }}')"{% endif %}>
+        <form action="{{ url_for('index') }}" method="post">
+            <input type="text" name="utterance" value="{{ utterance }}">
+            <input type="submit">
+        </form>
+        {% if utterance %}
+            <div class="chart-container">
+                <canvas id="chart"></canvas>
+            </div>
+        {% endif %}
+    </body>
+</html>

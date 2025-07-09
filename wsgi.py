@@ -7,10 +7,16 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index() -> str:
-    phrase = request.form.get("phrase")
-    context = {}
+    context: dict[str, float | str] = {"title": "Care Taker vs. Child Utterances"}
 
-    if phrase:
-        context["prediction"] = run_prediction(phrase)
+    if request.method == "POST":
+        utterance = request.form.get("utterance")
+        if utterance:
+            prediction = run_prediction(utterance)
+            context.update(
+                utterance=utterance,
+                care_taker_percent=prediction["care_taker_percent"],
+                child_percent=prediction["child_percent"],
+            )
 
     return render_template("index.html", **context)
