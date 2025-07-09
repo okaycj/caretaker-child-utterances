@@ -72,14 +72,17 @@ def preprocess_stoopsmontag() -> Generator[tuple[str, str], None, None]:
             yield role, sentence
 
 
-def run_prediction(value: str) -> tuple[float, float, str]:
+def run_prediction(value: str) -> dict[str, float | str]:
     loaded_model = joblib.load("childes.joblib")
     loaded_vectorizer = joblib.load("vectorizer.joblib")
     new_data_point_vectorized = loaded_vectorizer.transform([value])
     proba = loaded_model.predict_proba(new_data_point_vectorized)
     predict = loaded_model.predict(new_data_point_vectorized)
-    print(proba, predict)
-    return float(proba[0][0]), float(proba[0][1]), str(predict[0])
+    return {
+        "care_taker_percent": float(proba[0][0]),
+        "child_percent": float(proba[0][1]),
+        "prediction": str(predict[0]),
+    }
 
 
 if __name__ == "__main__":
