@@ -5,11 +5,13 @@ type:
 
 lint:
 	uv run ruff check --fix .
-	uv run djlint --lint --quiet ./templates
+	uv run djlint --lint --quiet .
 
 format:
 	uv run ruff format .
-	uv run djlint --reformat --quiet ./templates
+	uv run djlint --reformat --quiet .
+	uv run js-beautify -r ./static/**/*.js
+	uv run css-beautify -r ./static/**/*.css
 
 uv:
 	uv self update
@@ -21,3 +23,7 @@ prod:
 
 serve: main
 	uv run flask run
+
+deploy: main
+	git push heroku main
+
