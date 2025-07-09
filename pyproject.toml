@@ -24,6 +24,8 @@ dev = [
         "microsoft-python-type-stubs",
         "mypy>=1.16.1",
         "djlint>=1.36.4",
+        "jsbeautifier>=1.15.4",
+        "cssbeautifier>=1.15.4",
 ]
 
 [tool.uv.sources]

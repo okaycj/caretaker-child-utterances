@@ -58,7 +58,9 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "cssbeautifier" },
     { name = "djlint" },
+    { name = "jsbeautifier" },
     { name = "microsoft-python-type-stubs" },
     { name = "mypy" },
     { name = "pandas-stubs" },
@@ -81,7 +83,9 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "cssbeautifier", specifier = ">=1.15.4" },
     { name = "djlint", specifier = ">=1.36.4" },
+    { name = "jsbeautifier", specifier = ">=1.15.4" },
     { name = "microsoft-python-type-stubs", git = "https://github.com/microsoft/python-type-stubs.git" },
     { name = "mypy", specifier = ">=1.16.1" },
     { name = "pandas-stubs", specifier = ">=2.3.0.250703" },
