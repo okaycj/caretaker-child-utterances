@@ -1,5 +1,5 @@
-import string
 from pathlib import Path
+from string import punctuation
 from typing import Dict, Generator, Optional
 
 import joblib  # type: ignore
@@ -80,7 +80,7 @@ def preprocess_stoopsmontag() -> Generator[tuple[str, str], None, None]:
 
     for utterance in q.utterances():
         token_words = (t.word for t in utterance.tokens)
-        words = filter(lambda w: w not in string.punctuation, token_words)
+        words = filter(lambda w: w not in punctuation, token_words)
         sentence = " ".join(words)
         role = role_dict[utterance.participant]
 

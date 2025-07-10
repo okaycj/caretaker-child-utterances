@@ -1,3 +1,5 @@
+from string import ascii_lowercase as alpha
+
 from flask import Flask, jsonify, render_template, request, session
 from werkzeug.wrappers.response import Response
 
@@ -22,12 +24,18 @@ def index() -> str:
     caretaker_percents = session.get("caretaker_percents", [])
     child_percents = session.get("child_percents", [])
 
-    if utterance and utterances[-1] != utterance:
-        utterance = " ".join(utterance.lower().split())
-        prediction = run_prediction(utterance)
-        utterances.append(utterance)
-        caretaker_percents.append(prediction["caretaker_percent"])
-        child_percents.append(prediction["child_percent"])
+    if utterance:
+        # Sanitize data
+        utterance = " ".join(
+            "".join(filter(lambda c: c in alpha, w)) for w in utterance.lower().split()
+        )
+    
+        if not utterances or utterances[-1] != utterance:
+            prediction = run_prediction(utterance)
+            utterances.append(utterance)
+            caretaker_percents.append(prediction["caretaker_percent"])
+            child_percents.append(prediction["child_percent"])
+
         context["utterance"] = utterance
 
     session.update(
