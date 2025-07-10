@@ -10,8 +10,8 @@ app.config["SECRET_KEY"] = "your_secret_key_here"
 @app.route("/", methods=["GET"])
 def index() -> str:
     """
-    Retreives the utterance from the form and run the model.  This will 
-    organize the data into three parts (utterance, caretaker percent, and 
+    Retreives the utterance from the form and run the model.  This will
+    organize the data into three parts (utterance, caretaker percent, and
     child percent) and store them in session.  Session recores the last five
     utterance queries.
     """
@@ -42,7 +42,7 @@ def index() -> str:
 @app.route("/utterances")
 def utterances() -> Response:
     """
-    Async call to retrieve session data to populate chart.  
+    Async call to retrieve session data to populate chart.
     """
     return jsonify(
         {

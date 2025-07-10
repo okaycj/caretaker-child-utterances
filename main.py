@@ -27,8 +27,8 @@ def normalize_role(role: str) -> Optional[str]:
 
 def role_mapping(q: pylangacq.Reader) -> Dict[str, Optional[str]]:
     """
-    Generate a dictionary to map the roles in the chat file to the normalized 
-    roles. 
+    Generate a dictionary to map the roles in the chat file to the normalized
+    roles.
     """
     role_dict = {}
 
@@ -46,8 +46,8 @@ def role_mapping(q: pylangacq.Reader) -> Dict[str, Optional[str]]:
 
 def train(d: Generator[tuple[str, str], None, None]) -> None:
     """
-    Train regression on CHILDES data and save modal and vectorizer to joblib 
-    file. 
+    Train regression on CHILDES data and save modal and vectorizer to joblib
+    file.
     """
     df = pd.DataFrame(d, columns=["speaker", "utterance"])
 
@@ -71,7 +71,7 @@ def train(d: Generator[tuple[str, str], None, None]) -> None:
 
 def preprocess_stoopsmontag() -> Generator[tuple[str, str], None, None]:
     """
-    This is the preprocessing for the stoopmontag data. It will filter out 
+    This is the preprocessing for the stoopmontag data. It will filter out
     ending punctuation and normalize role.
     """
     data_dir = str(Path("data/StoopsMontag").absolute())
@@ -95,8 +95,8 @@ def run_prediction(value: str) -> dict[str, float | str]:
     loaded_model = joblib.load("childes.joblib")
     loaded_vectorizer = joblib.load("vectorizer.joblib")
     new_data_point_vectorized = loaded_vectorizer.transform([value])
-    # This is a list of probabilities, the prediction informs the order of 
-    # values.  Here we're assuming caretaker is the 0 index and the child is the 
+    # This is a list of probabilities, the prediction informs the order of
+    # values.  Here we're assuming caretaker is the 0 index and the child is the
     # other.
     proba = loaded_model.predict_proba(new_data_point_vectorized)
     predict = loaded_model.predict(new_data_point_vectorized)
