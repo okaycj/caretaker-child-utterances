@@ -12,8 +12,12 @@ from sklearn.model_selection import train_test_split
 
 
 def normalize_role(role: str) -> Optional[str]:
+    """
+    Take in role from chat file and normalize it to either caretaker or child.
+    Ignore roles that could be the investigator.
+    """
     if role in {"Mother", "Father", "Adult", "Relative"}:
-        return "care_taker"
+        return "caretaker"
     if role in {"Target_Child", "Child"}:
         return "child"
     if role in {"Investigator", "Unidentified"}:
@@ -22,6 +26,10 @@ def normalize_role(role: str) -> Optional[str]:
 
 
 def role_mapping(q: pylangacq.Reader) -> Dict[str, Optional[str]]:
+    """
+    Generate a dictionary to map the roles in the chat file to the normalized 
+    roles. 
+    """
     role_dict = {}
 
     for header in q.headers():
@@ -37,6 +45,10 @@ def role_mapping(q: pylangacq.Reader) -> Dict[str, Optional[str]]:
 
 
 def train(d: Generator[tuple[str, str], None, None]) -> None:
+    """
+    Train regression on CHILDES data and save modal and vectorizer to joblib 
+    file. 
+    """
     df = pd.DataFrame(d, columns=["speaker", "utterance"])
 
     vectorizer = TfidfVectorizer()
@@ -58,6 +70,10 @@ def train(d: Generator[tuple[str, str], None, None]) -> None:
 
 
 def preprocess_stoopsmontag() -> Generator[tuple[str, str], None, None]:
+    """
+    This is the preprocessing for the stoopmontag data. It will filter out 
+    ending punctuation and normalize role.
+    """
     data_dir = str(Path("data/StoopsMontag").absolute())
     q = pylangacq.read_chat(data_dir)
     role_dict = role_mapping(q)
@@ -73,13 +89,19 @@ def preprocess_stoopsmontag() -> Generator[tuple[str, str], None, None]:
 
 
 def run_prediction(value: str) -> dict[str, float | str]:
+    """
+    Function used by view to get prediction of single utterance.
+    """
     loaded_model = joblib.load("childes.joblib")
     loaded_vectorizer = joblib.load("vectorizer.joblib")
     new_data_point_vectorized = loaded_vectorizer.transform([value])
+    # This is a list of probabilities, the prediction informs the order of 
+    # values.  Here we're assuming caretaker is the 0 index and the child is the 
+    # other.
     proba = loaded_model.predict_proba(new_data_point_vectorized)
     predict = loaded_model.predict(new_data_point_vectorized)
     return {
-        "care_taker_percent": float(proba[0][0]),
+        "caretaker_percent": float(proba[0][0]),
         "child_percent": float(proba[0][1]),
         "prediction": str(predict[0]),
     }
