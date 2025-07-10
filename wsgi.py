@@ -29,14 +29,13 @@ def index() -> str:
         utterance = " ".join(
             "".join(filter(lambda c: c in alpha, w)) for w in utterance.lower().split()
         )
-    
+        context["utterance"] = utterance
+
         if not utterances or utterances[-1] != utterance:
             prediction = run_prediction(utterance)
             utterances.append(utterance)
             caretaker_percents.append(prediction["caretaker_percent"])
             child_percents.append(prediction["child_percent"])
-
-        context["utterance"] = utterance
 
     session.update(
         utterances=utterances[-5:],

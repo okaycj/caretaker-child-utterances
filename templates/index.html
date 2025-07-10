@@ -37,11 +37,12 @@
             <div class="chart-container">
                 <canvas id="chart"></canvas>
             </div>
+            <p>This visualization shows how new phrases are classified as being attributed to either a caregiver or a child.</p>
             <p>
-                This visualization presents the results of a regression model applied to a portion of the CHILDES corpus. Each utterance was labeled as coming from either a caretaker or a child, while utterances from investigators were excluded from the analysis. The purpose of this exploration was to see whether it is possible to predict the speaker based solely on the characteristics of the utterance.
+                The data comes from the CHILDES corpus (<a href="https://talkbank.org/childes/access/Eng-NA/StoopsMontag.html">StoopsMontag</a>), a collection of transcribed interactions between adults and children. The classifier was trained using <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">logistic regression</a> from the scikit-learn library.
             </p>
             <p>
-                The model has some clear limitations, but certain patterns do emerge. Longer and more grammatically complete phrases are typically attributed to the caretaker, while shorter or grammatically incorrect phrases are more often associated with the child. For example, a phrase like “it go there” is likely predicted as coming from a child, whereas “it goes there” is attributed to the caretaker. A similar pattern appears with word choices such as “mommy” versus “mom.” You can try submitting your own utterances in the input above to see how the model classifies them.
+                The classifier has some clear limitations, but certain patterns do emerge. Longer and more grammatically complete phrases are typically attributed to the caretaker, while shorter or grammatically incorrect phrases are more often associated with the child. For example, a phrase like “it go there” is likely predicted as coming from a child, whereas “it goes there” is attributed to the caretaker. A similar pattern appears with word choices such as “mommy” versus “mom.” You can try submitting your own utterances in the input above to see how the model classifies them.
             </p>
         </div>
     </body>
