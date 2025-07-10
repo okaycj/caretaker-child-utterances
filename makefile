@@ -27,3 +27,5 @@ serve: main
 deploy: main
 	git push heroku main
 
+train: main
+	uv run python main.py
