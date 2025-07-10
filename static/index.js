@@ -1,18 +1,20 @@
-/* colors: #ee4035 #f37736 #fdf498 #7bc043 #0392cf*/
-
-
-function displayChart(utterance, careTakerPercent, childPercent, title) {
+/** Takes values from server and generates staked bar plot. */
+function makeChart({
+    utterances,
+    caretaker_percents,
+    child_percents
+}) {
     const ctx = document.getElementById('chart');
 
     const data = {
-        labels: [utterance],
+        labels: utterances,
         datasets: [{
-            label: 'Care Taker',
-            data: [careTakerPercent],
+            label: 'Caretaker',
+            data: caretaker_percents,
             backgroundColor: "#ee4035",
         }, {
             label: 'Child',
-            data: [childPercent],
+            data: child_percents,
             backgroundColor: "#0392cf",
         }, ]
     };
@@ -24,7 +26,7 @@ function displayChart(utterance, careTakerPercent, childPercent, title) {
             plugins: {
                 title: {
                     display: true,
-                    text: title
+                    text: "Caretaker vs. Child Utterances"
                 },
             },
             responsive: true,
@@ -40,4 +42,17 @@ function displayChart(utterance, careTakerPercent, childPercent, title) {
     };
 
     new Chart(ctx, config)
+}
+
+/** Fetch session data from server and display chart. */
+function displayChart(url) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Utterances response error: ${response.status}`);
+            }
+            return response.json();
+        }).then(json => {
+            makeChart(json)
+        });
 }
