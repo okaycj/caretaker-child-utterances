@@ -15,15 +15,10 @@
               href="https://unpkg.com/skeleton-css@2.0.4/css/skeleton.css"
               integrity="sha384-DYrp2zq2MpwpsUD/zg8quiwNIBprEgPFt6ThfU0sQW3OkhWAdrZg6VTMwfbQ7315"
               crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-        <script src="https://unpkg.com/chart.js@4.5.0/dist/chart.umd.min.js"
-                integrity="sha384-XcdcwHqIPULERb2yDEM4R0XaQKU3YnDsrTmjACBZyfdVVqjh6xQ4/DCMd7XLcA6Y"
-                crossorigin="anonymous"></script>
         <script type="text/javascript"
-                src="{{ url_for('static', filename='index.js') }}"
-                defer></script>
+                src="{{ url_for('static', filename='main.js') }}"></script>
     </head>
-    <body onload="displayChart('{{ url_for("utterances") }}')">
+    <body id="childes">
         <div class="container">
             <h1 class="page-header">Caretaker vs. Child Utterances</h1>
             <form action="{{ url_for('index') }}" method="get">

@@ -1,4 +1,4 @@
-main: uv format type lint 
+main: uv npm format type lint 
 
 type:
 	uv run mypy --strict .
@@ -6,22 +6,26 @@ type:
 lint:
 	uv run ruff check --fix .
 	uv run djlint --lint --quiet .
+	npm run lint
 
 format:
 	uv run ruff format .
 	uv run djlint --reformat --quiet .
-	uv run js-beautify -r ./static/**/*.js
-	uv run css-beautify -r ./static/**/*.css
+	npm run format
 
 uv:
 	uv self update
 	uv sync
+
+npm:
+	npm ci
 
 prod:
 	uv sync --locked --no-default-groups
 	uv run gunicorn --config gunicorn.conf.py wsgi:app
 
 serve: main
+	npm run build
 	uv run flask run
 
 deploy: main

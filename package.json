@@ -1,0 +1,41 @@
+{
+  "name": "childes",
+  "version": "1.0.0",
+  "description": "This is a simple project demonstrating how to integrate a classifier into a webpage. The application is currently deployed on Heroku and can be accessed at the following URL:",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "format": "prettier ./src/* ./*.{js,json} --write",
+    "lint": "eslint ./src/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/okaycj/caretaker-child-utterances.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/okaycj/caretaker-child-utterances/issues"
+  },
+  "homepage": "https://github.com/okaycj/caretaker-child-utterances#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.31.0",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.37.0",
+    "webpack": "^5.100.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.0"
+  }
+}
