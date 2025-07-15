@@ -20,12 +20,14 @@ uv:
 npm:
 	npm ci
 
+build:
+	npm run build
+
 prod:
 	uv sync --locked --no-default-groups
 	SECRET_KEY="production_secret_key" uv run gunicorn --config gunicorn.conf.py wsgi:app
 
-serve: main
-	npm run build
+serve: main build
 	uv run flask run --debug
 
 deploy: main
