@@ -23,6 +23,7 @@ dev = [
         "microsoft-python-type-stubs",
         "mypy>=1.16.1",
         "djlint>=1.36.4",
+        "python-dotenv>=1.1.1",
 ]
 
 [tool.uv.sources]

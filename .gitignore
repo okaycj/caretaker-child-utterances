@@ -12,3 +12,4 @@ wheels/
 data
 node_modules
 static/*
+.env

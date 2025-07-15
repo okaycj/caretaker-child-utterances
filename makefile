@@ -22,11 +22,11 @@ npm:
 
 prod:
 	uv sync --locked --no-default-groups
-	uv run gunicorn --config gunicorn.conf.py wsgi:app
+	SECRET_KEY="production_secret_key" uv run gunicorn --config gunicorn.conf.py wsgi:app
 
 serve: main
 	npm run build
-	uv run flask run
+	uv run flask run --debug
 
 deploy: main
 	git push heroku main

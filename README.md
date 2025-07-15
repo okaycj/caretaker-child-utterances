@@ -30,7 +30,12 @@ weighted avg       0.82      0.84      0.82      6804
 
 You will need [uv](https://github.com/astral-sh/uv) and [pyenv](https://github.com/pyenv/pyenv).  See makefile for formatting, linting, and development server.  
 
-To start dev server run:
+To successfully start a dev server first create a `.env` file with the following:
+
+```
+SECRET_KEY=your_secret_key_here
+```
+Now run the serve make target to start the dev server.
 
 ```
 make serve

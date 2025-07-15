@@ -1,20 +1,27 @@
+import os
 from string import ascii_lowercase as alpha
 
+from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, session
 from werkzeug.wrappers.response import Response
 
 from main import run_prediction
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "your_secret_key_here"
+
+
+if app.debug:
+    load_dotenv()
+
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 
 @app.route("/", methods=["GET"])
 def index() -> str:
     """
-    Retreives the utterance from the form and run the model.  This will
+    Retrieves the utterance from the form and run the model.  This will
     organize the data into three parts (utterance, caretaker percent, and
-    child percent) and store them in session.  Session recores the last five
+    child percent) and store them in session.  Session stores the last five
     utterance queries.
     """
 
