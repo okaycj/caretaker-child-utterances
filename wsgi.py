@@ -1,7 +1,6 @@
 import os
 from string import ascii_lowercase as alpha
 
-from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, session
 from werkzeug.wrappers.response import Response
 
@@ -11,6 +10,8 @@ app = Flask(__name__)
 
 
 if app.debug:
+    from dotenv import load_dotenv
+
     load_dotenv()
 
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
