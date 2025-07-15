@@ -34,3 +34,6 @@ extend-select = ["I"]
 
 [tool.djlint]
 profile="jinja"
+
+[tool.uv]
+compile-bytecode = true
